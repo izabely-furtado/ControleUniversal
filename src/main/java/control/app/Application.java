@@ -10,5 +10,8 @@ package control.app;
  * @author 20121bsi0040
  */
 public class Application {
-    
+    public static void main(String []args){
+        
+        Controle.vai();
+    }
 }

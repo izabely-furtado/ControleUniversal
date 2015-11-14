@@ -6,6 +6,7 @@
 package control.observ;
 
 import control.cdp.Aparelho;
+import control.state.AparelhoState;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,27 +15,27 @@ import java.util.Observer;
  * @author 20121bsi0040
  */
 public class ControleRemoto implements Observer{
-
+    boolean estado;
+    
+    public ControleRemoto(){
+        this.estado = false;
+    }
+    
     @Override
-    public void update(Observable controle, Object arg) {
-        if(controle instanceof Aparelho){
-            Aparelho arCond = (Aparelho) ar;
-            
-            if(nTemp > 25 ){
-                int dif = nTemp - 25;
-                System.out.println("Temperatura aumentou" + dif + "graus");
+    public void update(Observable aparelho, Object arg) {
+        if(aparelho instanceof Aparelho){
+            Aparelho ap = (Aparelho) aparelho;
+            if (estado){
+                System.out.println("Está Ligado");
+                this.estado = false;
             }
-            else if (nTemp < 25){
-                int dif = 25 - nTemp;
-                System.out.println("Temperatura diminuiu" + dif + "graus");
+            else{
+                System.out.println("Está Desligado");
+                this.estado = true;
             }
         }
-        
         else{
-            throw new UnsupportedOperationException
-                      ("Indicação de quantidade não suportada, "
-                              + "sete a cada entrada (1*novaTemperatura) "
-                              + "ou saída(-1*novaTemperatura)");
+            throw new UnsupportedOperationException("Aparelho não suportado");
         }
     }
     

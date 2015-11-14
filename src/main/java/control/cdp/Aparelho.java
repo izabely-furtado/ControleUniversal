@@ -8,7 +8,8 @@ package control.cdp;
 import control.observ.ControleRemoto;
 import control.state.AparelhoState;
 import control.state.Desligado;
-import control.state.Ligado;
+import control.state.Queimado;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,24 +21,36 @@ import java.util.Observer;
 public class Aparelho extends Observable{
     List<ControleRemoto> controles;
     AparelhoState meuEstado;
-    
-    private  void liga(){
-        this.meuEstado = new Ligado();
+    private int muda;
+    public boolean estado;
+        
+    public Aparelho(int quantMudanças){
+        this.controles = new ArrayList();
+        this.muda = quantMudanças;
+        if(this.muda <= 0){
+            this.meuEstado = new Queimado(this);
+        }
+        //setando estado padrao como desligado
+        this.meuEstado = new Desligado(this);
+        this.estado = false;
     }
     
-    private void desliga(){
-        this.meuEstado = new Desligado();
-    }
-    
-    public void setNovoEstado(){
-        if (meuEstado instanceof Desligado){
-            this.liga();
+    public  void setNovoEstado(AparelhoState estado){
+        if (this.muda <= 0){
+            this.meuEstado = new Queimado(this);
         }
         else{
-            this.desliga();
+            this.meuEstado = estado;
         }
+        this.muda -=1;
+    }
+    
+    public void solicitaTrocarEstado(){
         setChanged();
         this.notifyObservers();
+        
+        this.meuEstado.solicitaTrocarEstado();
+        System.out.println(this.meuEstado.toString());
     }
     
     public void registerObserver(ControleRemoto observer) { 

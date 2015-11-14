@@ -5,15 +5,21 @@
  */
 package control.state;
 
+import control.cdp.Aparelho;
+
 /**
  *
  * @author 20121bsi0040
  */
 public abstract class AparelhoState implements IAparelhoState{
 
-    @Override
-    public void solicitaTrocarEstado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     protected Aparelho _aparelho;
+    
+    public AparelhoState(Aparelho ap){
+        this._aparelho = ap;
     }
+    
+    @Override
+    public abstract void solicitaTrocarEstado();
     
 }
