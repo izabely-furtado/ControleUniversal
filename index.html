@@ -1,0 +1,158 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/github-dark.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Controleuniversal</title>
+  <meta name="description" content="Exercício 3 de 8 da Lista de Padrões de Projeto">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Controleuniversal</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Exercício 3 de 8 da Lista de Padrões de Projeto</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/izabely-furtado/ControleUniversal/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/izabely-furtado/ControleUniversal/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/izabely-furtado/ControleUniversal" class="code">View Controleuniversal on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h3>
+<a id="diagrama-de-classes" class="anchor" href="#diagrama-de-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Diagrama de Classes</h3>
+
+<p>O diagrama representa a aplicação dos padrões State e Observador Implementados</p>
+
+<p><img src="https://github.com/izabely-furtado/ControleUniversal/blob/master/Diagramas/Class%20DiagramStateObserver.png?raw=true" alt=""></p>
+
+<h3>
+<a id="aplicação-do-padrão-state" class="anchor" href="#aplica%C3%A7%C3%A3o-do-padr%C3%A3o-state" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aplicação do Padrão State</h3>
+
+<h3>
+<a id="diagrama-de-fluxos" class="anchor" href="#diagrama-de-fluxos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Diagrama de Fluxos</h3>
+
+<p>No Diagrama de fluxos abaixo representa os estados da maquina</p>
+
+<p><img src="https://github.com/izabely-furtado/ControleUniversal/blob/master/Diagramas/Fluxo%20de%20Estados.png?raw=true" alt=""></p>
+
+<p>Considerando que o aparelho pode queimar de tanto ficar utilizando foi setado um valor padrão máximo de utilização. Assim definido como se há ou não há a possibilidade de mudança. Afinal o fluxo precisaria de um fim.</p>
+
+<p><strong>Explicação</strong>
+Analogamente ao implementado e explicado em <a href="http://izabely-furtado.github.io/MaquinaGoma/">Link Maquina de Gomas</a> podemos notar que IMaquinaState é análogo IAparelhoState, assim como o +solicitaGoma(int moeda) é a +solicitaTrocaEstado() que nos AparelhoState estão representados das seguintes formas:</p>
+
+<ul>
+<li>no estado Desligado, por exemplo:</li>
+</ul>
+
+<p>`
+public class Desligado extends AparelhoState{</p>
+
+<pre><code>public Desligado(Aparelho ap) {
+    super(ap);
+}
+
+@Override
+public void solicitaTrocarEstado() {
+    this._aparelho.setNovoEstado(new Ligado(this._aparelho));
+    this._aparelho.estado = true;
+    this._aparelho.solicitaTrocarEstado();
+}
+</code></pre>
+
+<p>`
+Análogo ao Estado Ligado</p>
+
+<ul>
+<li>no estado Queimado</li>
+</ul>
+
+<p>`
+public class Queimado extends AparelhoState{</p>
+
+<pre><code>public Queimado(Aparelho ap) {
+    super(ap);
+}
+
+@Override
+public void solicitaTrocarEstado() {
+    throw new UnsupportedOperationException("O aparelho queimou - troca");
+}
+
+@Override
+public String toString(){
+    return " :'( Já era";
+}
+</code></pre>
+
+<p>}
+`</p>
+
+<p>o THROW lançando uma exceção para a parada</p>
+
+<p>No mais _maquina é análoga a _aparelho.</p>
+
+<h3>
+<a id="aplicação-do-padrão-observador" class="anchor" href="#aplica%C3%A7%C3%A3o-do-padr%C3%A3o-observador" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aplicação do Padrão Observador</h3>
+
+<h3>
+<a id="representação-da-relação-de-observação" class="anchor" href="#representa%C3%A7%C3%A3o-da-rela%C3%A7%C3%A3o-de-observa%C3%A7%C3%A3o" aria-hidden="true"><span class="octicon octicon-link"></span></a>Representação da Relação de Observação</h3>
+
+<p>No Diagrama abaixo está representada a relação entre o observador (o Aparelho) e o observado (o Controle Remoto Universal).</p>
+
+<p><img src="https://github.com/izabely-furtado/ControleUniversal/blob/master/Diagramas/Class%20DiagramRela%C3%A7%C3%A3oObserva%C3%A7%C3%A3o.png?raw=true" alt=""></p>
+
+<p>Uma relação que se pode notar quem emite o sinal de comando (o Controle Remoto Universal) e quem executa em si o comando pedido (o Aparelho).</p>
+
+<p><strong>Explicação</strong></p>
+
+<p>Analogamente ao implementado e explicado em <a href="http://izabely-furtado.github.io/ArCondicionado/">Link ArCondicionado</a> podemos notar que no Observable (nesse caso como Aparelho) contém funções de registro, delete e notificação de cada observer (que nesse caso, só é um, o Controle Remoto Universal(CRU)) que foram implementadas num formato análogo, só que com determinadas mudanças no processo, identificadas a seguir.</p>
+
+<p>É dado o processo de controle seguindo esta sequência:</p>
+
+<ul>
+<li>é feita a criação de um observer, sendo esse o CRU</li>
+<li>se cria os aparelhos</li>
+<li>se adiciona o CRU em cada um dos aparelhos</li>
+<li>então se manipula as mudanças de estado, partindo de que o estado padrão é Desligado</li>
+</ul>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/izabely-furtado" class="avatar"><img src="https://avatars3.githubusercontent.com/u/14110922?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/izabely-furtado">izabely-furtado</a> maintains <a href="https://github.com/izabely-furtado/ControleUniversal">Controleuniversal</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/izabely-furtado/ControleUniversal/tarball/master" class="tar">tar</a><a href="https://github.com/izabely-furtado/ControleUniversal/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
