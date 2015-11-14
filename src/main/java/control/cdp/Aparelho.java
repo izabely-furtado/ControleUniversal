@@ -48,9 +48,9 @@ public class Aparelho extends Observable{
     public void solicitaTrocarEstado(){
         setChanged();
         this.notifyObservers();
-        
+        System.out.println(this.meuEstado);
         this.meuEstado.solicitaTrocarEstado();
-        System.out.println(this.meuEstado.toString());
+        
     }
     
     public void registerObserver(ControleRemoto observer) { 
