@@ -5,10 +5,10 @@
  */
 package control.cdp;
 
-import control.observ.ControleRemoto;
-import control.state.AparelhoState;
-import control.state.Desligado;
-import control.state.Queimado;
+import control.util.observ.ControleRemoto;
+import control.util.state.AparelhoState;
+import control.util.state.Desligado;
+import control.util.state.Queimado;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -31,8 +31,18 @@ public class Aparelho extends Observable{
             this.meuEstado = new Queimado(this);
         }
         //setando estado padrao como desligado
-        this.meuEstado = new Desligado(this);
+        else{
+            this.meuEstado = new Desligado(this);
+        }
         this.estado = false;
+    }
+    
+    public AparelhoState getMeuEstado(){
+        return this.meuEstado;
+    }
+    
+    public int getMudanca(){
+        return this.muda;
     }
     
     public  void setNovoEstado(AparelhoState estado){

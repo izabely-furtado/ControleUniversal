@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control.observ;
+package control.util.observ;
 
 import control.cdp.Aparelho;
-import control.state.AparelhoState;
+import control.util.state.AparelhoState;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,6 +19,10 @@ public class ControleRemoto implements Observer{
     
     public ControleRemoto(){
         this.estado = false;
+    }
+    
+    public boolean getEstado(){
+        return this.estado;
     }
     
     @Override

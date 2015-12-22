@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package control.state;
+package control.util.state;
 
 import control.cdp.Aparelho;
 
 /**
  *
- * @author IzabelyFurtado
+ * @author 20121bsi0040
  */
-public class Queimado extends AparelhoState{
+public class Desligado extends AparelhoState{
 
-    public Queimado(Aparelho ap) {
+    public Desligado(Aparelho ap) {
         super(ap);
     }
 
     @Override
     public void solicitaTrocarEstado() {
-        throw new UnsupportedOperationException("O aparelho queimou - troca");
+        this._aparelho.setNovoEstado(new Ligado(this._aparelho));
+        this._aparelho.estado = true;
+        this._aparelho.solicitaTrocarEstado();
     }
-    
+
     @Override
     public String toString(){
-        return " :'( Já era";
+        return "Desligado --> Ligado";
     }
+    
 }

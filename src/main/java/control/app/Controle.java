@@ -6,8 +6,8 @@
 package control.app;
 
 import control.cdp.Aparelho;
-import control.observ.ControleRemoto;
-import control.state.AparelhoState;
+import control.util.observ.ControleRemoto;
+import control.util.state.AparelhoState;
 import java.util.ArrayList;
 import java.util.List;
 
